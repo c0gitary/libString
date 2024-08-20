@@ -1,14 +1,11 @@
 #include "libstring.h"
 
-static uint8_t _length_str(const char* str) {
-	uint8_t len = 0;
-	while (str[len] != NULL_CHAR) {
-		len++;
+static uint8_t _length_str(const char* string) {
+	for (uint8_t length = 0;;length++) {
+		if (string[length] == NULL_CHAR) {
+			return length;
+		}
 	}
-	return len;
-	//do {
-	//	
-	//} while (str[len] == NULL_CHAR);
 }
 
 void string_init(String_t* string) {
@@ -59,18 +56,16 @@ int8_t string_find_char(String_t* string, const char ch){
 
 int8_t string_find_string(String_t* string, const char* string2) {
 	uint8_t len_string2 = _length_str(string2);
-	char end_char = string2[len_string2-1];
 
 	for (uint8_t i = 0; i < string->length; ++i) {
 		if (string->str[i] == *string2) {
 			for (uint8_t j = 0, k = i; j < len_string2 + 1; ++j, ++k) {
-				if (string->str[k] == end_char) {
+				if (string->str[k] == string2[len_string2 - 1]) {
 					return i;
 				}
 				if (!(string->str[k] == string2[j])) {
 					break;
 				}
-				//printf(">>\t%i\t%i\t%c\t%c\t%c\n", i, count, string->str[k], string2[j], end_char);
 			}
 		}
 		

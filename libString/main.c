@@ -21,7 +21,7 @@ int main() {
 	//
 	//}
 
-	string_append_string(&st, "helloWorld");
+	string_append_string(&st, "hellfdsfsdfsdoWorld");
 
 	printf(">> %i\n", string_find_string(&st, "World"));
 	return 0;
