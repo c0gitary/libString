@@ -3,17 +3,28 @@
 
 
 int main() {
-	String_t st;
+	String_t st, st2;
 
 	string_init(&st);
+	string_init(&st2);
 
-	string_append(&st, "1234567890");
+	//printf("%i\n", string_find_char(&st, 'a'));
 
-	printf("%s\n", st.str);
+	//double nc = 0;
 
-	printf("%s\n", st.str);
+	/*while ((getchar()) != EOF) {
+		nc++;
+	}*/
 
-	string_deinit(&st);
+	//for (int i = 0; i < 3; i++) {
+	//	//printf(">> %s\n", nc);
+	//	string_append_char(&st, getchar());
+	//
+	//}
 
+	string_append_string(&st, "hello");
+	string_append_string(&st2, "hello");
+
+	printf(">> %i\n", string_eq(&st, &st2));
 	return 0;
 }
