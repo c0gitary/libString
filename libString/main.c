@@ -5,8 +5,8 @@
 int main() {
 	String_t st, st2;
 
-	string_init(&st);
-	string_init(&st2);
+	string_init(&st, "hello");
+	//string_init(&st2);
 
 	//printf("%i\n", string_find_char(&st, 'a'));
 
@@ -21,10 +21,9 @@ int main() {
 	//	string_append_char(&st, getchar());
 	//
 	//}
-	string_append_string(&st, "11131");
 	//string_append(&st, &st2);
 	
 
-	printf(">> %i\n", string_find_string(&st, &st2));
+	printf(">> %s\n", st.str);
 	return 0;
 }

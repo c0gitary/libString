@@ -16,7 +16,7 @@ typedef struct String {
 } String_t;
 
 static uint8_t _length_str(const char* string) {
-	for (uint8_t length = 0;; length++) {
+	for (uint8_t length = 0;;length++) {
 		if (string[length] == NULL_CHAR) {
 			return length;
 		}
@@ -25,54 +25,11 @@ static uint8_t _length_str(const char* string) {
 
 void string_init(String_t* string, const char* _string) {
 	string->length = 0;
-	*string->str = NULL_CHAR;
-}
-
-void string_append_string(String_t* string1, String_t* string2) {
-	for (uint8_t i = 0; i < string2->length; ++i) {
-		string_append_char(string1, string2->str[i]);
-	}
-	return;
-}
-
-void string_append_char(String_t* string, const char ch) {
-	if (string->length < SIZE - 1) {
-		string->str[string->length] = ch;
+	for (uint8_t i = 0; i < _length_str(_string); ++i) {
+		string->str[i] = _string[i];
 		string->length++;
-		string->str[string->length] = NULL_CHAR;
 	}
-	return;
-}
-
-
-void string_replace_char(String_t* string, const char ch1, const char ch2) {
-	int8_t position = string_find_char(string, ch1);
-	string->str[position] = ch2;
-}
-
-void string_replace_all_char(String_t* string, const char ch1, const char ch2) {
-	for (uint8_t i = 0; i < string->length; i++) {
-		if (string->str[i] == ch1) {
-			string->str[i] = ch2;
-		}
-	}
-}
-
-void string_lowercase(String_t* string) {
-
-}
-
-bool string_eq(String_t* string1, String_t* string2) {
-	if (string1->length != string2->length) {
-		return false;
-	}
-
-	for (uint8_t i = 0; i < string1->length; ++i) {
-		if (string1->str[i] != string2->str[i]) {
-			return false;
-		}
-	}
-	return true;
+	string->str[string->length] = NULL_CHAR;
 }
 
 int8_t string_find_char(String_t* string, const char ch) {
@@ -112,4 +69,50 @@ int8_t string_find_all_char(String_t* string, const char ch) {
 		}
 	}
 	return incr;
-}g, const char ch);
+}
+
+void string_replace_char(String_t* string, const char ch1, const char ch2) {
+	int8_t position = string_find_char(string, ch1);
+	string->str[position] = ch2;
+}
+
+void string_append_char(String_t* string, const char ch) {
+	if (string->length < SIZE - 1) {
+		string->str[string->length] = ch;
+		string->length++;
+		string->str[string->length] = NULL_CHAR;
+	}
+	return;
+}
+
+void string_append_string(String_t* string1, String_t* string2) {
+	for (uint8_t i = 0; i < string2->length; ++i) {
+		string_append_char(string1, string2->str[i]);
+	}
+	return;
+}
+
+void string_replace_all_char(String_t* string, const char ch1, const char ch2) {
+	for (uint8_t i = 0; i < string->length; i++) {
+		if (string->str[i] == ch1) {
+			string->str[i] = ch2;
+		}
+	}
+}
+
+void string_lowercase(String_t* string) {
+
+}
+
+bool string_eq(String_t* string1, String_t* string2) {
+	if (string1->length != string2->length) {
+		return false;
+	}
+
+	for (uint8_t i = 0; i < string1->length; ++i) {
+		if (string1->str[i] != string2->str[i]) {
+			return false;
+		}
+	}
+	return true;
+}
