@@ -46,9 +46,9 @@ bool string_eq(String_t* string1, String_t* string2){
 	return true;
 }
 
-uint8_t string_find_char(String_t* string, const char ch){
+int8_t string_find_char(String_t* string, const char ch){
 	uint8_t position = 0;
-	while (position < SIZE - 1) {
+	while (position < string->length) {
 		if (string->str[position] == ch) {
 			return position;
 		}
@@ -56,21 +56,24 @@ uint8_t string_find_char(String_t* string, const char ch){
 	}
 	return position;
 }
-/*
-*  -> l l o
 
- H e l l o W o r l d
- - - | | |
-	 fc->ec
-	 p..
- */
-//uint8_t string_find_string(String_t* string, const char* string2) {
-//	uint8_t position = 0;
-//	char first_char = string2[0];
-//	char end_char = string2[_length_str(string2)];
-//	for(uint8_t i = 0; i < string->length; i++){
-//		if (string->str[i] == first_char) {
-//			position = i;
-//		}
-//	}
-//}
+int8_t string_find_string(String_t* string, const char* string2) {
+	uint8_t len_string2 = _length_str(string2);
+	char end_char = string2[len_string2-1];
+
+	for (uint8_t i = 0; i < string->length; ++i) {
+		if (string->str[i] == *string2) {
+			for (uint8_t j = 0, k = i; j < len_string2 + 1; ++j, ++k) {
+				if (string->str[k] == end_char) {
+					return i;
+				}
+				if (!(string->str[k] == string2[j])) {
+					break;
+				}
+				//printf(">>\t%i\t%i\t%c\t%c\t%c\n", i, count, string->str[k], string2[j], end_char);
+			}
+		}
+		
+	}
+	return -1;
+}
