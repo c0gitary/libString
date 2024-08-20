@@ -22,8 +22,6 @@ int main() {
 	//
 	//}
 	string_append_string(&st, "11131");
-	string_append_string(&st2, "31");
-
 	//string_append(&st, &st2);
 	
 
