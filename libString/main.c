@@ -3,9 +3,10 @@
 
 
 int main() {
-	String_t st;
+	String_t st, st2;
 
 	string_init(&st);
+	string_init(&st2);
 
 	//printf("%i\n", string_find_char(&st, 'a'));
 
@@ -20,9 +21,12 @@ int main() {
 	//	string_append_char(&st, getchar());
 	//
 	//}
+	string_append_string(&st, "11131");
+	string_append_string(&st2, "31");
 
-	string_append_string(&st, "hellfdsfsdfsdoWorld");
+	//string_append(&st, &st2);
+	
 
-	printf(">> %i\n", string_find_string(&st, "World"));
+	printf(">> %i\n", string_find_string(&st, &st2));
 	return 0;
 }
