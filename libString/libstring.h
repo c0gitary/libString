@@ -1,6 +1,5 @@
 #pragma once
 
-#include <stdio.h>
 #include <stdlib.h>
 
 #define SIZE 255
@@ -24,8 +23,6 @@ typedef struct String {
 String_t* string_init(const char* string);
 
 void string_free(String_t* string);
-
-void string_print(const String_t* string);
 
 String_t* string_copy(const String_t* string);
 
@@ -55,14 +52,23 @@ static void _string_copy(char* src, char* str) {
 	while ((*src++ = *str++) != '\0');
 }
 
-static void _mem_copy(void* dest, void* src, size_t count) {
-	char* __dst = (char*)dest;
-	char* __src = (char*)src;
+//void _mem_copy(void* dest, void* src, size_t count) {
+//	char* __dst = (char*)dest;
+//	char* __src = (char*)src;
+//	while (count--) {
+//		*__dst++ = *__src++;
+//	}
+//	return dest;
+//}
+
+static void* _mem_copy(char* dst, char* src, size_t count) {
+	void* ret = dst;
 	while (count--) {
-		*__dst++ = *__src++;
+		*dst++ = *src++;
 	}
-	return dest;
+	return (ret);
 }
+
 
 //========================================================//
 
@@ -75,7 +81,7 @@ String_t* string_init(const char* string) {
 	}
 
 	__string->length = _string_len(string);
-	__string->cap = __string->length++;
+	__string->cap = __string->length+1;
 	__string->data = malloc(sizeof(__string->cap));
 
 	if (__string->data == NULL) {
@@ -94,10 +100,6 @@ void string_free(String_t* string) {
 	}
 }
 
-void string_println(const String_t* string){
-	printf("%s\n", string->data);
-}
-
 size_t string_get_length(const String_t* string) {
 	return string->length;
 }
@@ -108,7 +110,7 @@ size_t string_get_capacity(const String_t* string) {
 
 String_t* string_concat(String_t* string1, String_t* string2) {
 	size_t len_new_string = string1->length + string2->length;
-	String_t* new_string = string_init(NULL);
+	String_t* new_string = string_init("");
 	new_string->length = len_new_string;
 	new_string->cap = len_new_string + 1;
 	new_string->data = malloc(new_string->cap);

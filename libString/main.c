@@ -7,7 +7,7 @@
 int main() {
 
 	String_t* str = string_init("hello");
-	String_t* str2 = string_init("World");
+	String_t* str2 = string_init(" World");
 	// Вывод массива src на консоль
 	//printf("%s\n", str->data);
 
