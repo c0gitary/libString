@@ -1,29 +1,23 @@
 #include <stdio.h>
-#include "libstring.h"
+#include "libString.h"
+
+
 
 
 int main() {
-	String_t st, st2;
 
-	string_init(&st, "hello");
-	//string_init(&st2);
+	String_t* str = string_init("hello");
+	String_t* str2 = string_init("World");
+	// Вывод массива src на консоль
+	//printf("%s\n", str->data);
 
-	//printf("%i\n", string_find_char(&st, 'a'));
+	String_t* str3 = string_concat(str, str2);
 
-	//double nc = 0;
+	string_println(str3);
 
-	/*while ((getchar()) != EOF) {
-		nc++;
-	}*/
+	string_free(str);
+	string_free(str2);
+	string_free(str3);
 
-	//for (int i = 0; i < 3; i++) {
-	//	//printf(">> %s\n", nc);
-	//	string_append_char(&st, getchar());
-	//
-	//}
-	//string_append(&st, &st2);
-	
-
-	printf(">> %s\n", st.str);
 	return 0;
 }
