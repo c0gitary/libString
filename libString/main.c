@@ -11,13 +11,12 @@ int main() {
 	// Вывод массива src на консоль
 	//printf("%s\n", str->data);
 
-	String_t* str3 = string_concat(str, str2);
+	string_replace_all_char(str, 'l', '1');
 
-	string_println(str3);
+	printf("%s\n", str->data);
 
 	string_free(str);
 	string_free(str2);
-	string_free(str3);
 
 	return 0;
 }

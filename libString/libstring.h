@@ -32,9 +32,15 @@ String_t* string_uppercase(String_t* string);
 
 String_t* stirng_lowercase(String_t* string);
 
+int8_t string_find_char(const String_t* string, const char ch);
+
 size_t string_get_length(const String_t* string);
 
 size_t string_get_capacity(const String_t* string);
+
+void string_replace_char(String_t* string, const char ch1, const char ch2);
+
+void string_replace_all_char(String_t* string, const char ch1, const char ch2);
 
 
 //===================[ PRIVATE FUNC ]=====================//
@@ -127,11 +133,26 @@ String_t* string_copy(const String_t* string) {
 	return string_init(string->data);
 }
 
-//String_t* string_uppercase(String_t* string) {
-//	for (size_t i = 0; i < string->length; ++i) {
-//
-//	}
-//}
+int8_t string_find_char(const String_t* string, const char ch) {
+	for (int8_t pos = 0; string->data[pos] != NULL_CHAR; ++pos) {
+		if (string->data[pos] == ch) {
+			return pos;
+		}
+	}
+	return -1;
+}
+
+void string_replace_char(String_t* string, const char ch1, const char ch2) {
+	string->data[string_find_char(string, ch1)] = ch2;
+}
+
+void string_replace_all_char(String_t* string, const char ch1, const char ch2) {
+	for (char* ptr = string->data; *ptr != NULL_CHAR; ++ptr) {
+		if (*ptr == ch1) {
+			*ptr = ch2;
+		}
+	}
+}
 
 
 //typedef struct String {
