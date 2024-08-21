@@ -38,6 +38,8 @@ size_t string_get_length(const String_t* string);
 
 size_t string_get_capacity(const String_t* string);
 
+bool string_eq(const String_t* string1, const String_t* string2);
+
 void string_replace_char(String_t* string, const char ch1, const char ch2);
 
 void string_replace_all_char(String_t* string, const char ch1, const char ch2);
@@ -47,10 +49,7 @@ void string_replace_all_char(String_t* string, const char ch1, const char ch2);
 
 static size_t _string_len(const char* string) {
 	size_t len = 0;
-	while (*string != NULL_CHAR) {
-		len++;
-		string++;
-	}
+	for (; *string != NULL_CHAR; ++len, ++string);
 	return len;
 }
 
@@ -58,21 +57,21 @@ static void _string_copy(char* src, char* str) {
 	while ((*src++ = *str++) != '\0');
 }
 
-//void _mem_copy(void* dest, void* src, size_t count) {
-//	char* __dst = (char*)dest;
-//	char* __src = (char*)src;
-//	while (count--) {
-//		*__dst++ = *__src++;
-//	}
-//	return dest;
-//}
-
 static void* _mem_copy(char* dst, char* src, size_t count) {
 	void* ret = dst;
-	while (count--) {
-		*dst++ = *src++;
-	}
+	while (count--) *dst++ = *src++;
 	return (ret);
+}
+
+static int8_t _mem_cmp(void* string1, void* string2, size_t count) {
+	register const uint8_t* str1 = (const uint8_t*)string1;
+	register const uint8_t* str2 = (const uint8_t*)string2;
+	while (count-- > 0) {
+		if (*str1++ != *str2++) {
+			return str1[-1] < str2[-1] ? -1 : 1;
+		}
+	}
+	return 0;
 }
 
 
@@ -82,10 +81,8 @@ static void* _mem_copy(char* dst, char* src, size_t count) {
 String_t* string_init(const char* string) {
 	String_t* __string = malloc(sizeof(String_t));
 
-	if (__string == NULL) {
-		return NULL;
-	}
-
+	if (__string == NULL) return NULL;
+	
 	__string->length = _string_len(string);
 	__string->cap = __string->length+1;
 	__string->data = malloc(sizeof(__string->cap));
@@ -152,6 +149,11 @@ void string_replace_all_char(String_t* string, const char ch1, const char ch2) {
 			*ptr = ch2;
 		}
 	}
+}
+
+bool string_eq(const String_t* string1, const String_t* string2) {
+	if (string1->length != string2->length) return false;
+	return _mem_cmp(string1->data, string2->data, string1->length) == 0;
 }
 
 
