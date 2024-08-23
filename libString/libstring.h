@@ -34,6 +34,8 @@ String_t* stirng_lowercase(String_t* string);
 
 int8_t string_find_char(const String_t* string, const char ch);
 
+int8_t string_find_string(const String_t* main_string, const String_t* find_string);
+
 size_t string_get_length(const String_t* string);
 
 size_t string_get_capacity(const String_t* string);
@@ -134,6 +136,22 @@ int8_t string_find_char(const String_t* string, const char ch) {
 	for (int8_t pos = 0; string->data[pos] != NULL_CHAR; ++pos) {
 		if (string->data[pos] == ch) {
 			return pos;
+		}
+	}
+	return -1;
+}
+
+int8_t string_find_string(const String_t* main_string, const String_t* find_string){
+	for (uint8_t i = 0; i < main_string->length; ++i) {
+		if (main_string->data[i] == find_string->data[0]) {
+			for (uint8_t j = 0, k = i; j < find_string->length + 1; ++j, ++k) {
+				if (main_string->data[k] == find_string->data[find_string->length - 1]) {
+					return i;
+				}
+				if (!(main_string->data[k] == find_string->data[j])) {
+					break;
+				}
+			}
 		}
 	}
 	return -1;
