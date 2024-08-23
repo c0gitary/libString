@@ -13,7 +13,7 @@ typedef unsigned char  uint8_t;
 typedef signed   char  int8_t;
 
 typedef struct String {
-	uint8_t *data;
+	char *data;
 	size_t length;
 	size_t cap;
 } String_t;
@@ -53,7 +53,7 @@ static size_t _string_len(const char* string) {
 	return len;
 }
 
-static void _string_copy(char* src, char* str) {
+static void _string_copy(char* src, const char* str) {
 	while ((*src++ = *str++) != '\0');
 }
 
